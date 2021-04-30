@@ -1,27 +1,32 @@
 "use strict";
+
+// Make navbar transparent when it is on the top
 const navbar = document.querySelector("#navbar");
 const navbarHeight = navbar.getBoundingClientRect().height;
 
 document.addEventListener("scroll", () => {
-  console.log(window.scrollY);
   if (window.scrollY >= navbarHeight) {
     navbar.classList.add("navbar--dark");
   } else {
-    // console.log("not yet");
     navbar.classList.remove("navbar--dark");
   }
 });
 
-// document.ready(function () {
-//   // Transition effect for navbar
-//   $(window).scroll(function () {
-//     // checks if window is scrolled more than 500px, adds/removes solid class
-//     if ($(this).scrollTop() > 500) {
-//       // $(".navbar").addClass("solid");
-//       navbar.style.background = "var(--color-pink)";
-//     } else {
-//       // $(".navbar").removeClass("solid");
-//       navbar.stlye.background = "transparent";
-//     }
-//   });
-// });
+// Scroll to section
+const navbarMenu = document.querySelector(".navbar__menu");
+
+navbarMenu.addEventListener("click", (event) => {
+  const target = event.target.dataset.link;
+  if (target == null) {
+    return;
+  }
+  document
+    .querySelector(target)
+    .scrollIntoView({ behavior: "smooth", block: "start" });
+});
+
+const contactBtn = document.querySelector(".home__contact");
+const contact = document.querySelector("#contact");
+contactBtn.addEventListener("click", () => {
+  contact.scrollIntoView({ behavior: "smooth", block: "center" });
+});
