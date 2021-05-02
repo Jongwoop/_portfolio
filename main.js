@@ -16,17 +16,19 @@ document.addEventListener("scroll", () => {
 const navbarMenu = document.querySelector(".navbar__menu");
 
 navbarMenu.addEventListener("click", (event) => {
-  const target = event.target.dataset.link;
-  if (target == null) {
+  const link = event.target.dataset.link;
+  if (link == null) {
     return;
   }
-  document
-    .querySelector(target)
-    .scrollIntoView({ behavior: "smooth", block: "start" });
+  scrollIntoView(link);
 });
 
 const contactBtn = document.querySelector(".home__contact");
-const contact = document.querySelector("#contact");
 contactBtn.addEventListener("click", () => {
-  contact.scrollIntoView({ behavior: "smooth", block: "center" });
+  scrollIntoView("#contact");
 });
+
+function scrollIntoView(selector) {
+  const scrollTo = document.querySelector(selector);
+  scrollTo.scrollIntoView({ behavior: "smooth", block: "center" });
+}
