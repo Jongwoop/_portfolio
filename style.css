@@ -146,7 +146,7 @@ p {
   font-size: var(--font-medium);
   color: var(--color-white);
   display: none;
-  top: 24px;
+  top: 12px;
 }
 
 /* Home */
@@ -471,6 +471,27 @@ p {
 .contact__links i:hover {
   transform: scale(1.1);
   color: var(--color-yellow);
+}
+
+/* Arrow Up Btn */
+.arrow-up {
+  position: fixed;
+  font-size: var(--font-medium);
+  color: var(--color-white);
+  background-color: var(--color-pink);
+  border-radius: 50%;
+  width: var(--font-large);
+  height: var(--font-large);
+  right: 50px;
+  bottom: 50px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--animation-duration) ease-in;
+}
+
+.arrow-up.visible {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 /* For below 768px screen width */
