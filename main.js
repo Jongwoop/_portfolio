@@ -56,3 +56,36 @@ document.addEventListener("scroll", () => {
 arrowBtn.addEventListener("click", () => {
   scrollIntoView("#home");
 });
+
+// Project Filtering
+const workBtnContainer = document.querySelector(".work__categories");
+const projectsContainer = document.querySelector(".work__projects");
+const projects = document.querySelectorAll(".project");
+
+workBtnContainer.addEventListener("click", (event) => {
+  const filter =
+    event.target.dataset.filter || event.target.parentNode.dataset.filter;
+  if (filter === null) {
+    return;
+  }
+  count(filter);
+  projectsContainer.classList.add("anim-out");
+  setTimeout(() => {
+    projects.forEach((project) => {
+      if (filter === "*" || project.dataset.type === filter) {
+        project.classList.remove("invisible");
+      } else {
+        project.classList.add("invisible");
+      }
+    });
+    projectsContainer.classList.remove("anim-out");
+  }, 200);
+});
+
+function count(filter) {
+  const toBeCount = document.querySelector(
+    `.category__btn[data-filter=${filter}]>span`
+  );
+  const count = document.querySelectorAll(".project").length;
+  toBeCount.innerHTML = count;
+}
