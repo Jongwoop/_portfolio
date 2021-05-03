@@ -62,9 +62,16 @@ const workBtnContainer = document.querySelector(".work__categories");
 const projectsContainer = document.querySelector(".work__projects");
 const projects = document.querySelectorAll(".project");
 
-workBtnContainer.addEventListener("click", (event) => {
-  const filter =
-    event.target.dataset.filter || event.target.parentNode.dataset.filter;
+workBtnContainer.addEventListener("click", (e) => {
+  const filter = e.target.dataset.filter || e.target.parentNode.dataset.filter;
+
+  // Remove selection from the previous item and
+  const active = document.querySelector(".category__btn.selected");
+  const target =
+    e.target.nodeName === "BUTTON" ? e.target : e.target.parentNode;
+  target.classList.add("selected");
+  active.classList.remove("selected");
+
   if (filter === null) {
     return;
   }
@@ -84,8 +91,12 @@ workBtnContainer.addEventListener("click", (event) => {
 
 function count(filter) {
   const toBeCount = document.querySelector(
-    `.category__btn[data-filter=${filter}]>span`
+    `.category__btn[data-filter="${filter}"]>span`
   );
-  const count = document.querySelectorAll(".project").length;
+  let count = document.querySelectorAll(`.project[data-type="${filter}"`)
+    .length;
+  if (filter === "*") {
+    count = projects.length;
+  }
   toBeCount.innerHTML = count;
 }
