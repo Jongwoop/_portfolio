@@ -9,6 +9,7 @@ navbarMenu.addEventListener("click", (event) => {
     return;
   }
   scrollIntoView(link);
+  navbarMenu.classList.remove("open");
 });
 
 // Make navbar transparent when it is on the top
@@ -21,6 +22,12 @@ document.addEventListener("scroll", () => {
   } else {
     navbar.classList.remove("navbar--dark");
   }
+});
+
+// Navbar toggle btn for small screen
+const toggleBtn = document.querySelector(".navbar__toggle-btn");
+toggleBtn.addEventListener("click", () => {
+  navbarMenu.classList.toggle("open");
 });
 
 // Make home slowly fade to transparent as the window scrolls down
@@ -40,7 +47,7 @@ contactBtn.addEventListener("click", () => {
 
 function scrollIntoView(selector) {
   const scrollTo = document.querySelector(selector);
-  scrollTo.scrollIntoView({ behavior: "smooth", block: "center" });
+  scrollTo.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 // Show "Arrow up" button when scrolling down

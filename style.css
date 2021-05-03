@@ -113,7 +113,7 @@ p {
 
 #navbar.navbar--dark {
   background-color: var(--color-pink);
-  padding: 8px 16px;
+  padding: 16px;
 }
 
 .navbar__logo {
@@ -145,7 +145,7 @@ p {
   font-size: var(--font-medium);
   color: var(--color-white);
   display: none;
-  top: 12px;
+  top: 20px;
 }
 
 /* Home */
@@ -400,7 +400,7 @@ p {
 }
 
 .project__description h3 {
-  color: var(--color-white);
+  color: var(--color-orange);
   font-weight: var(--weight-semi-bold);
 }
 .project__description h3:after {
@@ -408,9 +408,9 @@ p {
   display: block;
   position: relative;
   left: 50%;
-  margin-left: -12px;
   margin-top: 8px;
-  width: 25px;
+  transform: translateX(-50%);
+  width: 50px;
   height: 2px;
   background: var(--color-dark-white);
 }
@@ -512,6 +512,7 @@ p {
   #navbar {
     flex-direction: column;
     align-items: flex-start;
+    background-color: var(--color-pink);
   }
 
   .navbar__menu {
@@ -519,6 +520,9 @@ p {
     text-align: center;
     width: 100%;
     display: none;
+  }
+  .navbar__menu.open {
+    display: block;
   }
 
   .about__majors {
