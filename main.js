@@ -13,24 +13,60 @@ navbarMenu.addEventListener("click", (event) => {
 });
 
 // Make border of the navbar button to be left per each section
-const sections = document.querySelectorAll("section");
-const options = {
+const sectionIds = [
+  "#home",
+  "#about",
+  "#skills",
+  "#work",
+  "#testimonials",
+  "#contact",
+];
+
+const sections = sectionIds.map((id) => document.querySelector(id));
+const navItems = sectionIds.map((id) =>
+  document.querySelector(`[data-link="${id}"]`)
+);
+
+let selectedNavIndex = 0;
+let selectedNavItem = navItems[0];
+function selectNavItem(selected) {
+  selectedNavItem.classList.remove("active");
+  selectedNavItem = selected;
+  selectedNavItem.classList.add("active");
+}
+
+const observerOptions = {
   root: null, //viewport
   rootMargin: "0px", // from the window
   threshold: 0.3,
 };
-const callback = (entries, observer) => {
+const observerCallBack = (entries, observer) => {
   entries.forEach((entry) => {
-    let navItem = document.querySelector(`[data-link="#${entry.target.id}"]`);
-    if (entry.isIntersecting) {
-      navItem.classList.add("active");
-    } else {
-      navItem.classList.remove("active");
+    if (!entry.isIntersecting && entry.intersectionRatio > 0) {
+      const index = sectionIds.indexOf(`#${entry.target.id}`);
+      if (entry.boundingClientRect.y < 0) {
+        selectedNavIndex = index + 1;
+      } else {
+        selectedNavIndex = index - 1;
+      }
     }
   });
 };
-const observer = new IntersectionObserver(callback, options);
+
+const observer = new IntersectionObserver(observerCallBack, observerOptions);
 sections.forEach((section) => observer.observe(section));
+
+window.addEventListener("wheel", () => {
+  if (window.scrollY === 0) {
+    selectedNavIndex = 0;
+  } else if (
+    window.scrollY + window.innerHeight ===
+    document.body.clientHeight
+  ) {
+    selectedNavIndex = navItems.length - 1;
+  }
+  selectNavItem(navItems[selectedNavIndex]);
+});
 
 // Make navbar transparent when it is on the top
 const navbar = document.querySelector("#navbar");
@@ -68,6 +104,7 @@ contactBtn.addEventListener("click", () => {
 function scrollIntoView(selector) {
   const scrollTo = document.querySelector(selector);
   scrollTo.scrollIntoView({ behavior: "smooth", block: "start" });
+  selectNavItem(navItems[sectionIds.indexOf(selector)]);
 }
 
 // Show "Arrow up" button when scrolling down
