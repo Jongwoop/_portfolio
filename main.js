@@ -12,6 +12,26 @@ navbarMenu.addEventListener("click", (event) => {
   navbarMenu.classList.remove("open");
 });
 
+// Make border of the navbar button to be left per each section
+const sections = document.querySelectorAll("section");
+const options = {
+  root: null, //viewport
+  rootMargin: "0px", // from the window
+  threshold: 0.3,
+};
+const callback = (entries, observer) => {
+  entries.forEach((entry) => {
+    let navItem = document.querySelector(`[data-link="#${entry.target.id}"]`);
+    if (entry.isIntersecting) {
+      navItem.classList.add("active");
+    } else {
+      navItem.classList.remove("active");
+    }
+  });
+};
+const observer = new IntersectionObserver(callback, options);
+sections.forEach((section) => observer.observe(section));
+
 // Make navbar transparent when it is on the top
 const navbar = document.querySelector("#navbar");
 const navbarHeight = navbar.getBoundingClientRect().height;
